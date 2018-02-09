@@ -44,7 +44,7 @@ const Timer = function(elem, options) {
       offset   = Date.now();
       interval = setInterval(update, options.delay);
     }
-  }obj
+  }
 
   function pause() {
     if (interval) {
@@ -83,12 +83,39 @@ const Timer = function(elem, options) {
 };
 
 let TIME = new Vue( {
-  el: '#name',
+  el: '#a-timer',
   data: {
+    message: ""
+  },
+  methods: {
+    add: function () {
+      let tt = document.getElementById('name');
+      console.log(tt.style + "**");
+    },
+    finalize: function () {
+      let test = document.getElementById('name');
+      console.log(test + "___");
+      // if (test.attributes.getNamedItem("disabled").value === "disabled") {
+      //   test.attributes.removeNamedItem("disabled");
+      // }
+      // else {
 
+        let y = document.createAttribute("disabled");
+        y.value = "disabled";
+        console.log(y.value + " 0000");
+        test.attributes.setNamedItem(y);
+      // }
+    }
   }
 })
-let name = document.getElementById('name');
-console.log(name.value + "%%%%%");
+
+let app6 = new Vue({
+  el: '#app-6',
+  data: {
+    message: 'Hello Vue!'
+  }
+})
+
+
 let a = document.getElementById("a-timer");
 a_timer = new Timer(d, {delay: 100});
