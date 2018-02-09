@@ -1,7 +1,7 @@
 const Timer = function(elem, options) {
 
   let timer = createTimer(),
-  pauseButton = createButton("start", start),
+  startButton = createButton("start", start),
   pauseButton = createButton("pause", pause),
   doneButton = createButton("done", done),
   offset,
@@ -16,12 +16,12 @@ const Timer = function(elem, options) {
   // append elements
   elem.appendChild(timer);
   elem.appendChild(document.createElement("br"));
+  elem.appendChild(startButton);
   elem.appendChild(pauseButton);
-  elem.appendChild(stopButton);
   elem.appendChild(doneButton);
 
   // initialize
-  reset();
+  done();
 
   // private functions
   function createTimer() {
@@ -44,7 +44,7 @@ const Timer = function(elem, options) {
       offset   = Date.now();
       interval = setInterval(update, options.delay);
     }
-  }
+  }obj
 
   function pause() {
     if (interval) {
@@ -77,7 +77,18 @@ const Timer = function(elem, options) {
   }
 
   // public API
-  this.start  = start;
-  this.pause   = pause;
+  this.start = start;
+  this.pause = pause;
   this.done  = done;
 };
+
+let TIME = new Vue( {
+  el: '#name',
+  data: {
+
+  }
+})
+let name = document.getElementById('name');
+console.log(name.value + "%%%%%");
+let a = document.getElementById("a-timer");
+a_timer = new Timer(d, {delay: 100});
