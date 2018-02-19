@@ -39,18 +39,17 @@ export default {
         this.offset   = Date.now();
         this.interval = setInterval(this.update, this.options.delay);
       }
-      console.log(this.offset + " ppppp");
     },
     pause() {
       if (this.interval) {
         clearInterval(this.interval);
         this.interval = null;
       }
-      console.log("dahodhaouho");
+
     },
     lap() {
       this.haveLap = true;
-      this.laps.push(this.clock/1000);
+      this.laps.push(this.timer.current);
       // this.pause();
     },
     stop() {
@@ -74,10 +73,11 @@ export default {
       return d;
     },
     render() {
-      if (this.clock/1000 > 60) {
-        this.timer.current = (this.clock/1000)/60;
+      if (this.clock/1000 > 120) {
+        this.timer.current = Number.parseFloat((this.clock/1000)/60).toPrecision(3);
+        // console.log(this.timer.current);
       } else {
-        this.timer.current = this.clock/1000;
+        this.timer.current = Number.parseFloat((this.clock/1000)).toPrecision(3);
       }
     }
   }
