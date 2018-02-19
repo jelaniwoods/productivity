@@ -51,6 +51,8 @@ export default {
         this.$emit('create-todo', {
           title,
           project,
+          times: [],
+          currentTime: 0,
           done: false,
         });
         this.titleText = '';
