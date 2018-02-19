@@ -9,7 +9,7 @@
 
 <script>
 
-import todo from './components/Todo.vue'
+// import todo from './components/Todo.vue'
 import createTodo from './components/CreateTodo.vue'
 import todoList from './components/TodoList.vue'
 
@@ -17,19 +17,23 @@ import todoList from './components/TodoList.vue'
 export default {
 
   components: {
-    'todo': todo,
-    'createTodo':  createTodo,
-    'todoList': todoList
+    // 'todo': todo,
+    'create-todo':  createTodo,
+    'todo-list': todoList
   },
   data() {
 
     return {
-
+      todos: [{
+        title: 'Todo A',
+        project: 'Project A',
+        done: false,
+      }]
     };
   },
   methods: {
     createTodo(newTodo) {
-      this.todoList.push(newTodo);
+      this.todos.push(newTodo);
     }
   }
 
