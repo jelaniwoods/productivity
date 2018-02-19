@@ -2,12 +2,25 @@
 
   <div class="todo">
 
-    <button type="button" @click="open" v-show="!isCreating"> + </button>
-
-    <div v-show="isCreating">
-      <input type="text" placeholder="Add Todo" v-model="titleText">
-      <button type="button" @click="create">Add</button>
-      <button type="button" @click="deleteTodo"> X </button>
+    <!-- <button type="button" @click="open" v-show="!isEditing"> + </button> -->
+    <div v-show="!isEditing">
+      <h5>{{todo.title}}</h5>
+      <h6>{{todo.project}}</h6>
+      <hr>
+      <ul>
+        <li v-for="time in todo.times"> {{time}}</li>
+      </ul>
+      <button type="button" @click="startTime" v-show="!timing"> Begin </button>
+      <stopwatch v-show="timing"> </stopwatch>
+      <button type="button" @click="timing = !timing" v-show="timing"> Done For Now </button>
+      <button type="button"@click="deleteTodo(todo)"> X </button>
+      <br>
+      <button type="button" @click="completeTodo(todo)"> O </button>
+    </div>
+    <div v-show="isEditing">
+      <input type="text" placeholder="Add Todo">
+      <button type="button" @click="">Add</button>
+      <button type="button" @click=""> X </button>
 
     </div>
 
@@ -18,43 +31,40 @@
 </template>
 
 <script>
+
+import stopwatch from './Stopwatch';
+
 export default {
 
+  props: ['todo'],
+  components: {
+    stopwatch
+  },
   data() {
     return {
-      titleText: '',
-      project: '',
-      times: [],
-      isCreating: false
-
+      isEditing: false,
+      timing: false
     };
   },
 
   methods: {
     open: function () {
-      this.isCreating = true;
+      this.isEditing = true;
     },
 
     close: function () {
-      this.isCreating = false;
+      this.isEditing = false;
     },
+    completeTodo(todo) {
+        this.$emit('complete-todo', todo);
+      },
     deleteTodo(todo) {
         this.$emit('delete-todo', todo);
       },
-    create: function () {
 
-      if (this.titleText.length > 0 && this.projectText.length > 0) {
-        const title = this.titleText;
-        const project = this.project;
-        this.$emit('create-todo', {
-            title,
-            project,
-            done: false,
-          });
-          this.titleText = '';
-          this.project = '';
-          this.isCreating = false;
-      }
+    startTime: function () {
+      this.timing = true;
+      console.log('timer started');
     }
   }
 
@@ -62,5 +72,10 @@ export default {
 </script>
 
 <style lang="css">
-
+  .todo {
+    border: 1px solid black;
+    width: 400px;
+    text-align: center;
+    padding: 20px;
+  }
 </style>
