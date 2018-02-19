@@ -1,7 +1,8 @@
 <template lang="html">
 
   <div>
-    <todo></todo>
+    <todo-list v-bind:todos="todos"></todo-list>
+    <create-todo v-on:create-todo="createTodo"></create-todo>
   </div>
 
 </template>
@@ -9,12 +10,16 @@
 <script>
 
 import todo from './components/Todo.vue'
+import createTodo from './components/CreateTodo.vue'
+import todoList from './components/TodoList.vue'
 
 
 export default {
 
   components: {
-    'todo': todo
+    'todo': todo,
+    'createTodo':  createTodo,
+    'todoList': todoList
   },
   data() {
 
@@ -23,7 +28,9 @@ export default {
     };
   },
   methods: {
-
+    createTodo(newTodo) {
+      this.todoList.push(newTodo);
+    }
   }
 
 }
