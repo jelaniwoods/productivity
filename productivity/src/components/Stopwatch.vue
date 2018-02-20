@@ -24,6 +24,7 @@ export default {
       timer: {
         current: 0
       },
+      mins: 0,
       haveLap: false,
       laps: [],
       interval: null,
@@ -73,11 +74,21 @@ export default {
       return d;
     },
     render() {
-      if (this.clock/1000 > 120) {
-        this.timer.current = Number.parseFloat((this.clock/1000)/60).toPrecision(3);
-        // console.log(this.timer.current);
+      if ((this.clock/100000) >= .60) {
+        // let min = (this.clock/100000)/60;
+
+        console.log(((this.clock/100000) % .60) + "()()()() " + (this.clock/100000).toPrecision(3) % .60 );
+        if ((this.clock/100000).toPrecision(3) % .60 <= 0.0001) {
+          //TODO not sure how to make these seconds go to minutes
+          this.mins++;
+          console.log(((this.mins)) + "()()(@@@@@)()");
+          this.timer.current = Number.parseFloat((this.clock/100000)).toPrecision(3) % .60 + this.mins;
+        }
+        else
+          this.timer.current = Number.parseFloat((this.clock/100000)).toPrecision(4) % .60 + this.mins;
+
       } else {
-        this.timer.current = Number.parseFloat((this.clock/1000)).toPrecision(3);
+        this.timer.current = Number.parseFloat((this.clock/100000)).toPrecision(3);
       }
     }
   }
