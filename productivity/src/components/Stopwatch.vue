@@ -24,7 +24,7 @@ export default {
       timer: {
         current: 0
       },
-      mins: 0,
+      mins: 0.000,
       haveLap: false,
       laps: [],
       interval: null,
@@ -74,21 +74,25 @@ export default {
       return d;
     },
     render() {
-      if ((this.clock/100000) >= .60) {
+      if ((this.clock) >= 59500) {
         // let min = (this.clock/100000)/60;
-
-        console.log(((this.clock/100000) % .60) + "()()()() " + (this.clock/100000).toPrecision(3) % .60 );
-        if ((this.clock/100000).toPrecision(3) % .60 <= 0.0001) {
-          //TODO not sure how to make these seconds go to minutes
-          this.mins++;
-          console.log(((this.mins)) + "()()(@@@@@)()");
-          this.timer.current = Number.parseFloat((this.clock/100000)).toPrecision(3) % .60 + this.mins;
-        }
-        else
-          this.timer.current = Number.parseFloat((this.clock/100000)).toPrecision(4) % .60 + this.mins;
-
+        //60000000 ms to 1 minute or actually 60000
+        this.mins++;
+        let nt = Number.parseFloat(this.timer.current) + Number.parseInt(this.mins);
+        console.log('mins: ' + this.mins + ' cur: ' + this.timer.current + " clock: " + this.clock + ' newtime: ' +
+      nt);
+        this.clock -= 59500;
+        console.log('newclock: '  + this.clock);
+        this.timer.current = Number.parseFloat((nt).toPrecision(4));
+        //   //TODO not sure how to make these seconds go to minutes
       } else {
-        this.timer.current = Number.parseFloat((this.clock/100000)).toPrecision(3);
+        if (this.mins === 0) {
+          this.timer.current = Number.parseFloat((this.clock/100000)+ Number.parseInt(this.mins)).toPrecision(2);
+        } else if (this.mins <= 9){
+        this.timer.current = Number.parseFloat((this.clock/100000)+ Number.parseInt(this.mins)).toPrecision(3);
+      } else if (this.mins > 9 && this.mins < 60) {
+        this.timer.current = Number.parseFloat((this.clock/100000)+ Number.parseInt(this.mins)).toPrecision(4);
+        }
       }
     }
   }
