@@ -1,5 +1,4 @@
 <template lang="html">
-
   <div id="stopwatch">
     <ul v-show="haveLap">
       <li v-for="lap in laps"> {{lap}}</li>
@@ -12,14 +11,15 @@
       <button type="button" @click="stop">Stop</button>
       <button type="button" @click="reset">Reset</button>
     </div>
+    <div class="stats">
+      <p v-show="calculated">{{this.totalWork}}</p>
+      <button type="button" @click="findTotal">Calculate Total Time</button>
+    </div>
   </div>
 </template>
-
 <script>
-
 export default {
-
-  data() {
+  data () {
     return {
       timer: {
         current: 0
@@ -27,73 +27,77 @@ export default {
       mins: 0.000,
       haveLap: false,
       laps: [],
+      totalWork: 0,
+      calculated: false,
       interval: null,
       offset: {},
       clock: 0,
       options: {delay: 100}
     }
   },
-
   methods: {
-    start() {
+    start () {
       if (!this.interval) {
         this.offset   = Date.now();
         this.interval = setInterval(this.update, this.options.delay);
       }
     },
-    pause() {
+    pause () {
       if (this.interval) {
         clearInterval(this.interval);
         this.interval = null;
       }
-
     },
-    lap() {
+    lap () {
       this.haveLap = true;
       this.laps.push(this.timer.current);
-      // this.pause();
+      this.stop();
     },
-    stop() {
+    stop () {
       this.clock = 0;
+      this.mins = 0;
       this.render(0);
       this.pause();
     },
-    reset() {
+    reset () {
       this.laps = [];
       this.stop();
     },
-    update() {
+    update () {
       this.clock += this.delta();
       this.render();
     },
-    delta() {
+    delta () {
       let now = Date.now(),
           d   = now - this.offset;
-
       this.offset = now;
       return d;
     },
-    render() {
+    render () {
       if ((this.clock) >= 59500) {
         // let min = (this.clock/100000)/60;
         //60000000 ms to 1 minute or actually 60000
         this.mins++;
-        let nt = Number.parseFloat(this.timer.current) + Number.parseInt(this.mins);
+        let nt = Number.parseFloat(this.timer.current) + Number.parseFloat(this.mins);
         console.log('mins: ' + this.mins + ' cur: ' + this.timer.current + " clock: " + this.clock + ' newtime: ' +
       nt);
         this.clock -= 59500;
         console.log('newclock: '  + this.clock);
-        this.timer.current = Number.parseFloat((nt).toPrecision(4));
-        //   //TODO not sure how to make these seconds go to minutes
+        this.timer.current = Number.parseFloat((this.mins).toPrecision(4));
       } else {
         if (this.mins === 0) {
           this.timer.current = Number.parseFloat((this.clock/100000)+ Number.parseInt(this.mins)).toPrecision(2);
-        } else if (this.mins <= 9){
+        } else if (this.mins <= 9) {
         this.timer.current = Number.parseFloat((this.clock/100000)+ Number.parseInt(this.mins)).toPrecision(3);
-      } else if (this.mins > 9 && this.mins < 60) {
+      } else if (this.mins > 9 && this.mins < 60) {reducer = (accumulator, currentValue) => accumulator + currentValue;
         this.timer.current = Number.parseFloat((this.clock/100000)+ Number.parseInt(this.mins)).toPrecision(4);
         }
       }
+    },
+    findTotal () {
+      let cc = this.laps.reduce((acc, cur) => Number.parseFloat(acc) + Number.parseFloat(cur));
+      this.totalWork = cc;
+      this.calculated = true;
     }
   }
 
