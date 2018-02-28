@@ -10,19 +10,19 @@
       <ul>
         <li v-for="time in todo.times"> {{time}}</li>
       </ul>
-      <button type="button" @click="startTime" v-show="!timing"> Begin </button>
+      <button type="button" @click="startTime" v-show="!timing && !done"> Begin </button>
       <stopwatch v-show="timing"> </stopwatch>
       <button type="button" @click="timing = !timing" v-show="timing"> Done For Now </button>
       <button type="button"@click="deleteTodo(todo)"> X </button>
       <br>
-      <button type="button" @click="completeTodo(todo)"> O </button>
+      <button type="button" @click="completeTodo(todo)" v-show="!done"> O </button>
     </div>
-    <div v-show="isEditing">
+    <!-- <div v-show="isEditing">
       <input type="text" placeholder="Add Todo">
       <button type="button" @click="">Add</button>
       <button type="button" @click=""> X </button>
 
-    </div>
+    </div> -->
 
 
   </div>
@@ -33,17 +33,20 @@
 <script>
 
 import stopwatch from './Stopwatch';
+import TodoList from './TodoList';
 
 export default {
 
   props: ['todo'],
   components: {
-    stopwatch
+    'stopwatch': stopwatch,
+    'todo-list': TodoList
   },
   data() {
     return {
       isEditing: false,
-      timing: false
+      timing: false,
+      done: false
     };
   },
 
@@ -56,6 +59,8 @@ export default {
       this.isEditing = false;
     },
     completeTodo(todo) {
+        this.done = true;
+        console.log(  "8888" + this.done);
         this.$emit('complete-todo', todo);
       },
     deleteTodo(todo) {
@@ -75,7 +80,7 @@ export default {
   .todo {
     border: 1px solid black;
     width: 400px;
-    text-align: center;
+    margin: 0 auto;
     padding: 20px;
   }
 </style>

@@ -85,11 +85,12 @@ export default {
         console.log('newclock: '  + this.clock);
         this.timer.current = Number.parseFloat((this.mins).toPrecision(4));
       } else {
-        if (this.mins === 0) {
+        if (this.mins <= 0) {
           this.timer.current = Number.parseFloat((this.clock/100000)+ Number.parseInt(this.mins)).toPrecision(2);
         } else if (this.mins <= 9) {
         this.timer.current = Number.parseFloat((this.clock/100000)+ Number.parseInt(this.mins)).toPrecision(3);
-      } else if (this.mins > 9 && this.mins < 60) {reducer = (accumulator, currentValue) => accumulator + currentValue;
+      } else if (this.mins > 9) {
+        // reducer = (accumulator, currentValue) => accumulator + currentValue;
         this.timer.current = Number.parseFloat((this.clock/100000)+ Number.parseInt(this.mins)).toPrecision(4);
         }
       }

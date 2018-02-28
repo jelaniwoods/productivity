@@ -29,6 +29,7 @@ export default {
       },
       completeTodo(todo) {
         const todoIndex = this.todos.indexOf(todo);
+        console.log(this.todos[todoIndex].done + "{{{}}}");
         this.todos[todoIndex].done = true;
 
       },

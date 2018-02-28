@@ -1,6 +1,7 @@
 <template lang="html">
 
-  <div>
+  <div id="app">
+    <h1>Productivity</h1>
     <todo-list v-bind:todos="todos"></todo-list>
     <create-todo v-on:create-todo="createTodo"></create-todo>
   </div>
@@ -27,7 +28,7 @@ export default {
       todos: [{
         title: 'Todo A',
         project: 'Project A',
-        done: false,
+        done: false
       }]
     };
   },
@@ -44,5 +45,10 @@ export default {
 
 <style lang="css">
 
+  #app {
+    margin: 0 auto;
+    text-align: center;
+    max-width: 1200px;
+  }
 
 </style>
