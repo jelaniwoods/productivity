@@ -1,9 +1,6 @@
 <template lang="html">
-
   <div class="todo">
-
-    <!-- <button type="button" @click="open" v-show="!isEditing"> + </button> -->
-    <div v-show="!isEditing">
+    <div>
       <h5>{{todo.title}}</h5>
       <h6>{{todo.project}}</h6>
       <hr>
@@ -17,50 +14,38 @@
       <br>
       <button type="button" @click="completeTodo(todo)" v-show="!done"> O </button>
     </div>
-    <!-- <div v-show="isEditing">
-      <input type="text" placeholder="Add Todo">
-      <button type="button" @click="">Add</button>
-      <button type="button" @click=""> X </button>
-
-    </div> -->
-
-
   </div>
-
-
 </template>
 
 <script>
 
 import stopwatch from './Stopwatch';
-import TodoList from './TodoList';
+// import TodoList from './TodoList';
 
 export default {
 
   props: ['todo'],
   components: {
-    'stopwatch': stopwatch,
-    'todo-list': TodoList
+    'stopwatch': stopwatch
+    // 'todo-list': TodoList
   },
   data() {
     return {
-      isEditing: false,
+
       timing: false,
       done: false
     };
   },
 
   methods: {
-    open: function () {
-      this.isEditing = true;
-    },
-
-    close: function () {
-      this.isEditing = false;
-    },
     completeTodo(todo) {
         this.done = true;
-        console.log(  "8888" + this.done);
+        // for (var x in this) {
+        //   if (this.hasOwnProperty(x)) {
+        //     console.log(this[x] + ' : ' + x);
+        //   }
+        // }
+        console.log(  "8888" + this.title);
         this.$emit('complete-todo', todo);
       },
     deleteTodo(todo) {
@@ -69,7 +54,6 @@ export default {
 
     startTime: function () {
       this.timing = true;
-      console.log('timer started');
     }
   }
 

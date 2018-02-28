@@ -23,17 +23,22 @@ export default {
     'todo-list': todoList
   },
   data() {
-
     return {
       todos: [{
         title: 'Todo A',
         project: 'Project A',
-        done: false
+        done: true
       }]
     };
   },
   methods: {
     createTodo(newTodo) {
+      for (let x in newTodo) {
+        if (newTodo.hasOwnProperty(x)) {
+          console.log(x + " : " + newTodo[x]);
+        }
+      }
+      console.log(newTodo + "&&");
       this.todos.push(newTodo);
     }
   }

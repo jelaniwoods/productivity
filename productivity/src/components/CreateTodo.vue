@@ -15,7 +15,7 @@
             <input v-model="projectText" type='text'>
           </div>
           <div >
-            <button v-on:click="sendForm()">
+            <button v-on:click="sendForm">
               Create
             </button>
             <button v-on:click="closeForm">
@@ -49,11 +49,10 @@ export default {
         const title = this.titleText;
         const project = this.projectText;
         this.$emit('create-todo', {
-          title,
-          project,
-          times: [],
-          currentTime: 0,
-          done: false,
+          title: this.titleText,
+          project: this.projectText,
+          timing: false,
+          done: false
         });
         this.titleText = '';
         this.projectText = '';

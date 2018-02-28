@@ -2,10 +2,16 @@
   <div>
     <!-- <p class="tasks">Completed Tasks: {{todos.filter(todo => {return todo.done === true}).length}}</p>
     <p class="tasks">Pending Tasks: {{todos.filter(todo => {return todo.done === false}).length}}</p> -->
-    <h3> Pending Tasks</h3>
-    <todo v-on:delete-todo="deleteTodo" v-on:complete-todo="completeTodo" v-for="todo in todos.filter(todo => {return todo.done === false})" :todo.sync="todo"></todo>
-    <h3> Completed Tasks</h3>
-    <todo v-on:delete-todo="deleteTodo" v-on:complete-todo="completeTodo" v-for="todo in todos.filter(todo => {return todo.done === true})" :todo.sync="todo"></todo>
+    <div class="col">
+      <h3> Pending Tasks</h3>
+      <todo id="pending" v-on:delete-todo="deleteTodo" v-on:complete-todo="completeTodo" v-for="todo in todos.filter(todo => {return todo.done === false})" :todo.sync="todo"></todo>
+
+    </div>
+    <div class="col">
+      <h3> Completed Tasks</h3>
+      <todo id="completed" v-on:delete-todo="deleteTodo" v-for="todo in todos.filter(todo => {return todo.done === true})" :todo.sync="todo"></todo>
+
+    </div>
   </div>
 </template>
 
@@ -29,6 +35,7 @@ export default {
       },
       completeTodo(todo) {
         const todoIndex = this.todos.indexOf(todo);
+        this.todos[todoIndex].done = true;
         console.log(this.todos[todoIndex].done + "{{{}}}");
         this.todos[todoIndex].done = true;
 
@@ -37,5 +44,11 @@ export default {
 };
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
+  .col {
+    display: inline-block;
+  }
+  #completed {
+    /* display: inline-block; */
+  }
 </style>
