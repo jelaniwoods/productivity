@@ -13,7 +13,7 @@
     </div>
     <div class="stats">
       <p v-show="calculated">{{this.totalWork}}</p>
-      <button type="button" @click="findTotal">Calculate Total Time</button>
+      <button type="button" @click="findTotal" :disabled="!haveLap">Calculate Total Time</button>
     </div>
   </div>
 </template>
@@ -61,6 +61,8 @@ export default {
     },
     reset () {
       this.laps = [];
+      this.calculated = false;
+      this.haveLap = false;
       this.stop();
     },
     update () {
@@ -105,5 +107,10 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
+  li {
+    list-style-type: none;
+    text-align: center;
+    margin-right: 20px;
+  }
 </style>
