@@ -1,5 +1,5 @@
 <template lang="html">
-  <table>
+  <!-- <table>
     <tr>
       <td class="col">
 
@@ -9,20 +9,29 @@
       <td class="col">
           <h3> Completed Tasks</h3>
       </td>
-    </tr>
+    </tr> -->
 
-    <tr>
+    <!-- <tr>
       <td class="col">
           <todo v-on:delete-todo="deleteTodo" v-on:complete-todo="completeTodo" v-for="todo in todos.filter(todo => {return todo.done === false})" :todo.sync="todo"></todo>
-
       </td>
       <td class="col">
           <todo v-on:delete-todo="deleteTodo" v-for="todo in todos.filter(todo => {return todo.done === true})" :todo.sync="todo"></todo>
-
       </td>
 
-    </tr>
-  </table>
+    </tr> -->
+    <!-- </table> -->
+    <div class="">
+      <div class="">
+        <div class="titles ui left">
+          <h2>Pending</h2>
+        </div>
+        <div class="titles ui right">
+          <h2>Completed</h2>
+        </div>
+      </div>
+      <todo  v-show="!done" v-on:delete-todo="deleteTodo" v-on:complete-todo="completeTodo" v-for="todo in todos" :todo.sync="todo"></todo>
+    </div>
 
 </template>
 
@@ -36,6 +45,11 @@ export default {
       Todo,
       Stopwatch
     },
+    data() {
+      return {
+
+      }
+    },
     methods: {
       deleteTodo(todo) {
         const todoIndex = this.todos.indexOf(todo);
@@ -43,44 +57,18 @@ export default {
       },
       completeTodo(todo) {
         const todoIndex = this.todos.indexOf(todo);
-        // this.todos[todoIndex].done = true;
-        console.log(this.todos[todoIndex].done + "{{{}}}");
         this.todos[todoIndex].done = true;
-
+        // this.todos[todoIndex].className = 'ui  card right';
+        // console.log(this.todos[todoIndex].className + ' 3u01r8' +this.todos[todoIndex].done);
       },
     },
 };
 </script>
 <style lang="css" scoped>
   .col {
-    /* display: inline-block; */
+    display: inline-block;
     text-align: center;
   }
-  table {
-  border: 2px solid blueviolet;
-  margin: 0 auto;
-  border-radius: 3px;
-  background-color: #fff;
-}
 
-th {
-  background-color: #42b983;
-  color: rgba(255,255,255,0.66);
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-td {
-  background-color: #f9f9f9;
-  min-width: 482px;
-}
-
-th, td {
-  /* min-width: 120px; */
-  padding: 10px 20px;
-}
 
 </style>

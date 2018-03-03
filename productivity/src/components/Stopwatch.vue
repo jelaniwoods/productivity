@@ -101,6 +101,8 @@ export default {
       let cc = this.laps.reduce((acc, cur) => Number.parseFloat(acc) + Number.parseFloat(cur));
       this.totalWork = cc;
       this.calculated = true;
+      console.log(this.totalWork + '******');
+      this.$emit('calculated', {sum: this.totalWork});
     }
   }
 
