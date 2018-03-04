@@ -1,5 +1,5 @@
 <template lang="html">
-  <div :class="{ todo, ui, card, left, pending: !done, completed: done } ">
+  <div :class="{left: !done, right: done } " class="card ui">
     <div>
       <h5>{{todo.title}}</h5>
       <h6>{{todo.project}}</h6>
@@ -72,14 +72,6 @@ export default {
     margin: 0 auto;
     padding: 20px;
     display: block;
-  }
-
-  .pending {
-    margin-left: -50px;
-  }
-
-  .completed {
-    margin-right: 50px;
   }
   .slide-fade-enter-active {
     transition: all .3s ease;

@@ -21,15 +21,15 @@
 
     </tr> -->
     <!-- </table> -->
-    <div class="">
-      <div class="">
+    <div class="ui three stackable cards">
+      <!-- <div class="">
         <div class="titles ui left">
           <h2>Pending</h2>
         </div>
         <div class="titles ui right">
           <h2>Completed</h2>
         </div>
-      </div>
+      </div> -->
       <todo  v-show="!done" v-on:delete-todo="deleteTodo" v-on:complete-todo="completeTodo" v-for="todo in todos" :todo.sync="todo"></todo>
     </div>
 

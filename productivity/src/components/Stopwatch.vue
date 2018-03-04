@@ -7,10 +7,12 @@
     <div class="butts">
       <button type="button" @click="start">Start</button>
       <button type="button" @click="pause">Pause</button>
-      <button type="button" @click="lap">Lap</button>
-      <button type="button" @click="stop">Stop</button>
-      <button type="button" @click="reset">Reset</button>
+      <button type="button" :disabled="fifteen" @click="lap">Lap</button>
+      <button type="button" :disabled="fifteen" @click="stop">Stop</button>
+      <button type="button" :disabled="fifteen" @click="reset">Reset</button>
+      <button type="button" @click="forcedFifteen">Fifteen!</button>
     </div>
+    <audio id="snd" src="https://www.w3schools.com/html/horse.ogg" preload="auto"></audio>
     <div class="stats">
       <p v-show="calculated">{{this.totalWork}}</p>
       <button type="button" @click="findTotal" :disabled="!haveLap">Calculate Total Time</button>
@@ -22,7 +24,7 @@ export default {
   data () {
     return {
       timer: {
-        current: 0
+        current: 0.00
       },
       mins: 0.000,
       haveLap: false,
@@ -32,7 +34,9 @@ export default {
       interval: null,
       offset: {},
       clock: 0,
-      options: {delay: 100}
+      options: {delay: 100},
+      alert: false,
+      fifteen: false
     }
   },
   methods: {
@@ -68,6 +72,13 @@ export default {
     update () {
       this.clock += this.delta();
       this.render();
+      if (this.fifteen && this.mins >= 15) {
+        this.stop();
+        // console.log('stoooopppp');
+        document.getElementById('snd').play();
+        alert('15 minutes up!');
+        this.fifteen = false;
+      }
     },
     delta () {
       let now = Date.now(),
@@ -103,6 +114,10 @@ export default {
       this.calculated = true;
       console.log(this.totalWork + '******');
       this.$emit('calculated', {sum: this.totalWork});
+    },
+    forcedFifteen() {
+      this.fifteen = true;
+      this.start();
     }
   }
 
