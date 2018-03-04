@@ -1,6 +1,10 @@
 <template lang="html">
   <div :class="{left: !done, right: done } " class="card ui">
     <div>
+      <button type="button"@click="deleteTodo(todo)" class="remove">
+        <i class="trash alternate icon"></i>
+      </button>
+      <div class="remove-after"></div>
       <h5>{{todo.title}}</h5>
       <h6>{{todo.project}}</h6>
       <h3 v-if="done">Completed</h3>
@@ -8,14 +12,21 @@
       <ul>
         <li v-for="time in todo.times"> {{time}}</li>
       </ul>
-      <button type="button" @click="startTime" v-show="!timing && !done"> Begin </button>
-      <div class="stopwatch" v-show="timing && !done">
-        <stopwatch v-on:calculated="calculated"></stopwatch>
-      </div>
-      <button type="button" @click="timing = !timing" v-show="timing"> Done For Now </button>
-      <button type="button"@click="deleteTodo(todo)"> X </button>
+      <transition name="slide-fade" mode="out-in">
+        <div v-if="!timing && !done" key="begin">
+          <!--  v-show="!timing && !done"-->
+          <button type="button" @click="startTime" > Begin </button>
+        </div>
+        <!--   v-show="timing && !done"-->
+        <div class="stopwatch" v-if="timing && !done" key="timer" >
+          <stopwatch v-on:calculated="calculated"></stopwatch>
+          <button type="button" @click="timing = !timing" v-show="timing"> Done For Now </button>
+        </div>
+      </transition>
       <br>
-      <button type="button" @click="completeTodo(todo)" v-show="!done"> O </button>
+      <button type="button" @click="completeTodo(todo)" v-show="!done">
+        <i class="check circle outline icon"></i>
+      </button>
     </div>
     <div v-if="done">
       <h6>Total Time:</h6>
@@ -25,33 +36,29 @@
 </template>
 
 <script>
-
 import Stopwatch from './Stopwatch';
-// import TodoList from './TodoList';
 
 export default {
   props: ['todo'],
   components: {
     Stopwatch
-    // 'todo-list': TodoList
   },
   data() {
     return {
       total: 0,
       timing: false,
-      done: false
+      done: false,
+      created: true,
+      state: 'beginning'
     };
   },
-
   methods: {
     completeTodo(todo) {
         this.done = true;
-        // console.log(  "8888" + this.title);
         this.$emit('complete-todo', todo);
       },
       calculated(total) {
         this.total = total.sum;
-        // console.log(total.sum + '   787d89d6 ' + this.total);
       },
     deleteTodo(todo) {
         this.$emit('delete-todo', todo);
@@ -61,11 +68,10 @@ export default {
       this.timing = true;
     }
   }
-
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
   .todo {
     border: 1px solid black;
     width: 400px;
@@ -73,11 +79,17 @@ export default {
     padding: 20px;
     display: block;
   }
+  .remove {
+    float: right;
+  }
+  .remove-after {
+    clear: both;
+  }
   .slide-fade-enter-active {
     transition: all .3s ease;
   }
   .slide-fade-leave-active {
-    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
   }
   .slide-fade-enter, .slide-fade-leave-to
   /* .slide-fade-leave-active below version 2.1.8 */ {

@@ -1,9 +1,13 @@
 <template lang="html">
   <div >
-    <button v-on:click="openForm" v-show="!isCreating">
-      +
-    </button>
-    <div v-show="isCreating">
+    <transition name="slide-fade" mode="out-in">
+      <div v-if="!isCreating" key="begin">
+        <button v-on:click="openForm">
+          <i class="plus icon"></i>
+        </button>
+
+      </div>
+    <div v-if="isCreating" key="struff">
       <div>
         <div>
           <div>
@@ -25,6 +29,7 @@
         </div>
       </div>
     </div>
+    </transition>
   </div>
 </template>
 
@@ -63,5 +68,16 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
 </style>

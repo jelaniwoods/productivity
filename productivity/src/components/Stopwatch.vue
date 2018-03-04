@@ -10,7 +10,7 @@
       <button type="button" :disabled="fifteen" @click="lap">Lap</button>
       <button type="button" :disabled="fifteen" @click="stop">Stop</button>
       <button type="button" :disabled="fifteen" @click="reset">Reset</button>
-      <button type="button" @click="forcedFifteen">Fifteen!</button>
+      <button type="button" :disabled="timing" @click="forcedFifteen">Fifteen!</button>
     </div>
     <audio id="snd" src="https://www.w3schools.com/html/horse.ogg" preload="auto"></audio>
     <div class="stats">
@@ -36,6 +36,7 @@ export default {
       clock: 0,
       options: {delay: 100},
       alert: false,
+      timing: false,
       fifteen: false
     }
   },
@@ -44,6 +45,7 @@ export default {
       if (!this.interval) {
         this.offset   = Date.now();
         this.interval = setInterval(this.update, this.options.delay);
+        this.timing = true;
       }
     },
     pause () {
@@ -60,10 +62,12 @@ export default {
     stop () {
       this.clock = 0;
       this.mins = 0;
+      this.timing = false;
       this.render(0);
       this.pause();
     },
     reset () {
+      this.timing = false;
       this.laps = [];
       this.calculated = false;
       this.haveLap = false;
