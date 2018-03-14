@@ -3,7 +3,7 @@
 
     <transition-group name="fade" mode="out-in">
       <div v-if="todos.length" class="todo-container" key="full">
-          <todo v-on:delete-todo="deleteTodo" v-on:complete-todo="completeTodo" v-for="todo in todos" :todo.sync="todo" ></todo>
+          <todo class="todont" v-on:delete-todo="deleteTodo" v-on:complete-todo="completeTodo" v-for="todo in todos" :todo.sync="todo" ></todo>
       </div>
       <div v-if="!changed"class="todo-container" key="empty">
 
@@ -54,7 +54,10 @@ export default {
     display: inline-block;
     text-align: center;
   }
+  .todont {
+    transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 
+  }
   .fade-enter-active, .fade-leave-active {
     transition: opacity .3s ease;
   }

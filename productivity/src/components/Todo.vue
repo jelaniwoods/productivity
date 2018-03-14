@@ -78,6 +78,8 @@ export default {
     margin: 0 auto;
     padding: 20px;
     display: block;
+    transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+
   }
   .remove {
     float: right;
