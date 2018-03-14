@@ -1,14 +1,12 @@
-<template lang="html">
+<template lang="html" v-if="todos.length" tag="div">
   <div class="ui three stackable cards">
-
-    <transition-group name="fade" mode="out-in">
-      <div v-if="todos.length" class="todo-container" key="full">
-          <todo class="todont" v-on:delete-todo="deleteTodo" v-on:complete-todo="completeTodo" v-for="todo in todos" :todo.sync="todo" ></todo>
-      </div>
-      <div v-if="!changed"class="todo-container" key="empty">
-
-      </div>
-    </transition-group>
+    <div class="todo-container ui center">
+      <transition-group name="fade" tag="ul">
+        <li v-for="todo in todos" :key="todo">
+          <todo class="todont" v-on:delete-todo="deleteTodo" v-on:complete-todo="completeTodo" :todo.sync="todo" ></todo>
+        </li>
+      </transition-group>
+    </div>
   </div>
 </template>
 
@@ -54,12 +52,14 @@ export default {
     display: inline-block;
     text-align: center;
   }
+  ul {
+    list-style-type: none;
+  }
   .todont {
-    transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-
+    /* position: absolute; */
   }
   .fade-enter-active, .fade-leave-active {
-    transition: opacity .3s ease;
+    transition: opacity .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
   }
   .fade-enter, .fade-leave-to {
     opacity: 0;
