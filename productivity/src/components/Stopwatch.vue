@@ -1,7 +1,7 @@
 <template lang="html">
   <div id="stopwatch">
-    <ul v-show="haveLap">
-      <li v-for="lap in laps"> {{lap}}</li>
+    <ul v-show="haveLap" st>
+      <li v-for="lap in laps" class="lap"> {{lap}}</li>
     </ul>
     <span v-model="timer.current">{{timer.current}}</span>
     <div class="butts">
@@ -9,7 +9,7 @@
       <button type="button" @click="pause">Pause</button>
       <button type="button" :disabled="fifteen" @click="lap">Lap</button>
       <button type="button" :disabled="fifteen" @click="stop">Stop</button>
-      <button type="button" :disabled="fifteen" @click="reset">Reset</button>
+      <button type="button" @click="reset">Reset</button>
       <button type="button" :disabled="timing" @click="forcedFifteen">Fifteen!</button>
     </div>
     <audio id="snd" src="https://www.w3schools.com/html/horse.ogg" preload="auto"></audio>
@@ -71,6 +71,7 @@ export default {
       this.laps = [];
       this.calculated = false;
       this.haveLap = false;
+      this.fifteen = false;
       this.stop();
     },
     update () {
@@ -133,5 +134,16 @@ export default {
     list-style-type: none;
     text-align: center;
     margin-right: 20px;
+  }
+  .lap {
+    display: inline-block;
+  }
+  button {
+    transition: all .3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  button:disabled,button[disabled]{
+    border: 1px solid white inset;
+    color: white;
+    background-color: #666;
   }
 </style>
