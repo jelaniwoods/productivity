@@ -39,6 +39,7 @@
 export default {
   data() {
     return {
+      id: 1,
       titleText: '',
       projectText: '',
       isCreating: false,
@@ -56,6 +57,7 @@ export default {
         const title = this.titleText;
         const project = this.projectText;
         this.$emit('create-todo', {
+          id: this.id++,
           title: this.titleText,
           project: this.projectText,
           timing: false,
