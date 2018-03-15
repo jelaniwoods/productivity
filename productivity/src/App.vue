@@ -21,6 +21,7 @@ export default {
   data() {
     return {
       todos: [{
+        id: 0,
         title: 'Todo A',
         project: 'Project A',
         done: false,
