@@ -1,11 +1,12 @@
 <template lang="html" v-if="todos.length" tag="div">
-  <div class="ui three stackable cards">
-    <div class="todo-container ui center">
-      <transition-group name="fade" tag="ul">
-        <li v-for="todo in todos" :key="todo">
-          <todo class="todont" v-on:delete-todo="deleteTodo" v-on:complete-todo="completeTodo" :todo.sync="todo" ></todo>
+  <div class="ui three stackable cards" >
+    <div class="todo-container ui center" id="todolist">
+      <transition-group name="todolist" tag="ul">
+        <li v-for="todo in todoByStatus" :key="todo.id" class="todont" v-bind:class="todo.done ? 'done' : ''">
+          <todo v-on:delete-todo="deleteTodo" v-on:complete-todo="completeTodo" :todo.sync="todo" ></todo>
         </li>
       </transition-group>
+    <togglebutton :todos="todos" label="Move done items at the end?" name="todosort" v-on:clicked="clickontoogle" />
     </div>
   </div>
 </template>
@@ -13,16 +14,19 @@
 <script>
 import Todo from './Todo';
 import Stopwatch from './Stopwatch';
+import togglebutton from './ToggleButton';
 export default {
   props: ['todos'],
     components: {
       Todo,
-      Stopwatch
+      Stopwatch,
+      togglebutton
     },
     data() {
       return {
         len: this.todos.length,
-        new_len: this.todos.length
+        new_len: this.todos.length,
+        sortByStatus: false
       }
     },
     methods: {
@@ -36,13 +40,29 @@ export default {
       },
       completeTodo(todo) {
         const todoIndex = this.todos.indexOf(todo);
-        this.todos[todoIndex].done = true;
+        this.todos[todoIndex].done = !this.todos[todoIndex].done;
         // this.todos[todoIndex].className = 'ui  card right';
         // console.log(this.todos[todoIndex].className + ' 3u01r8' +this.todos[todoIndex].done);
       },
       changed() {
         console.log(this.len == this.new_len);
         return this.len == this.new_len;
+      },
+      clickontoogle: function(active) {
+        this.sortByStatus = active;
+        console.log('ojfo');
+      }
+    },
+    computed: {
+      todoByStatus() {
+        if(!this.sortByStatus) {
+          return this.todos;
+        }
+        var sortedArray = []
+        var doneArray = this.todos.filter(function(todo) { return todo.done; });
+        var notDoneArray = this.todos.filter(function(todo) { return !todo.done; });
+        sortedArray = [...notDoneArray, ...doneArray];
+        return sortedArray;
       }
     }
 };
@@ -54,14 +74,42 @@ export default {
   }
   ul {
     list-style-type: none;
+    /* display: flex; */
   }
   .todont {
     /* position: absolute; */
+    padding-bottom: 2em;
   }
-  .fade-enter-active, .fade-leave-active {
+  #todolist ul {
+    margin-top:2.6rem;
+    list-style:none;
+  }
+  #todolist .todolist-move {
+    transition: transform 1s;
+  }
+  #todolist li {
+    display:flex;
+    margin:0 -3rem 4px;
+    padding:1.1rem 3rem;
+    justify-content:space-between;
+    align-items:center;
+    background:rgba(255,255,255,0.1);
+  }
+  #todolist .emptylist {
+    margin-top:2.6rem;
+    text-align:center;
+    letter-spacing:.05em;
+    font-style:italic;
+    opacity:0.8;
+    
+  }
+  togglebutton {
+    display: block;
+  }
+  .todolist-enter-active, .todolist-leave-active {
     transition: opacity .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
   }
-  .fade-enter, .fade-leave-to {
+  .todolist-enter, .todolist-leave-to {
     opacity: 0;
   }
 
