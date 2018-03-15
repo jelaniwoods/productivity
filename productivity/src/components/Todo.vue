@@ -7,7 +7,7 @@
       <div class="remove-after"></div>
       <h5>{{todo.title}}</h5>
       <h6>{{todo.project}}</h6>
-      <h3 v-if="done">Completed</h3>
+      <h3 v-show="done">Completed</h3>
       <hr>
       <ul>
         <li v-for="time in todo.times"> {{time}}</li>
@@ -24,7 +24,7 @@
         </div>
       </transition>
       <br>
-      <button type="button" @click="completeTodo(todo)" v-show="!done">
+      <button type="button" @click="completeTodo(todo)" :aria-label="todo.done ? 'Undone' : 'Done'">
         <i class="check circle outline icon"></i>
       </button>
     </div>
@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     completeTodo(todo) {
-        this.done = true;
+        this.done = !this.done;
         this.$emit('complete-todo', todo);
       },
       calculated(total) {
