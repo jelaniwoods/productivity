@@ -16,9 +16,9 @@
             <input v-model="titleText" type='text'>
           </div>
           <div>
-            <label>Project</label>
+            <label>Project Details</label>
             <br/>
-            <input v-model="projectText" type='text'>
+            <input v-model="text" type='text'>
           </div>
           <div class="buttons">
             <button v-on:click="sendForm" class="bounce_left">
@@ -41,7 +41,7 @@ export default {
     return {
       id: 1,
       titleText: '',
-      projectText: '',
+      text: '',
       isCreating: false,
     };
   },
@@ -53,18 +53,18 @@ export default {
       this.isCreating = false;
     },
     sendForm() {
-      if (this.titleText.length > 0 && this.projectText.length > 0) {
+      if (this.titleText.length > 0 && this.text.length > 0) {
         const title = this.titleText;
-        const project = this.projectText;
+        const text = this.text;
         this.$emit('create-todo', {
           id: this.id++,
           title: this.titleText,
-          project: this.projectText,
+          text: this.text,
           timing: false,
           done: false
         });
         this.titleText = '';
-        this.projectText = '';
+        this.text = '';
         this.isCreating = false;
       }
     },
@@ -100,9 +100,6 @@ button {
 }
 .buttons {
   margin: 0 auto;
-}
-.buttons button {
-  /* margin-left: 2em;  */
 }
 .bounce_left {
       display: inline-block;

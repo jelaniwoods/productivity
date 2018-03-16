@@ -1,7 +1,7 @@
 <template lang="html" v-if="todos.length" tag="div">
-  <div class="ui three stackable cards" >
-    <div class="todo-container ui center" id="todolist">
-      <transition-group name="todolist" tag="ul">
+  <div class="ui" >
+    <div class="todo-container " id="todolist">
+      <transition-group name="todolist" tag="ul" class="cen">
         <li v-for="todo in todoByStatus" :key="todo.id" class="todont" v-bind:class="todo.done ? 'done' : ''">
           <todo v-on:delete-todo="deleteTodo" v-on:complete-todo="completeTodo" :todo.sync="todo" ></todo>
         </li>
@@ -74,6 +74,7 @@ export default {
   }
   ul {
     list-style-type: none;
+    margin: 0 auto;
     /* display: flex; */
   }
   .todont {
@@ -102,6 +103,11 @@ export default {
     font-style:italic;
     opacity:0.8;
     
+  }
+  .cen {
+    display: flex;
+    flex-direction: column;
+    border: 10px solid lightgray
   }
   togglebutton {
     display: block;

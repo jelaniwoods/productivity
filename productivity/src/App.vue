@@ -23,7 +23,7 @@ export default {
       todos: [{
         id: 0,
         title: 'Todo A',
-        project: 'Project A',
+        text: 'project details',
         done: false,
         created: true,
         timer: {}
@@ -45,6 +45,7 @@ export default {
     margin: 0 auto;
     text-align: center;
     max-width: 1200px;
+
   }
   .spacer {
     padding-top: 50px;
