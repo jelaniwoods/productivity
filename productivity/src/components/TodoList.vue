@@ -104,11 +104,11 @@ export default {
     opacity:0.8;
     
   }
-  .cen {
+  /* .cen {
     display: flex;
     flex-direction: column;
     border: 10px solid lightgray
-  }
+  } */
   togglebutton {
     display: block;
   }

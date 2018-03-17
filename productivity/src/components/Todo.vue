@@ -2,7 +2,7 @@
   <div  class="card ui todo">
     <div>
       <!-- <div class="history"> -->
-        <button type="button"@click="deleteTodo(todo)" class="remove">
+        <!-- <button type="button"@click="deleteTodo(todo)" class="remove">
           <i class="trash alternate icon"></i>
         </button>
         <div class="remove-after"></div>
@@ -15,10 +15,8 @@
         </ul>
         <transition name="slide-fade" mode="out-in">
           <div v-if="!timing && !done" key="begin">
-            <!--  v-show="!timing && !done"-->
             <button type="button" @click="startTime" > Begin </button>
           </div>
-          <!--   v-show="timing && !done"-->
           <div class="stopwatch" v-if="timing && !done" key="timer" >
             <stopwatch v-on:calculated="calculated"></stopwatch>
             <button type="button" @click="timing = !timing" v-show="timing"> Done For Now </button>
@@ -27,29 +25,25 @@
         <br>
         <button type="button" @click="completeTodo(todo)" :aria-label="todo.done ? 'Undone' : 'Done'">
           <i :class="done ? 'check circle outline icon' : 'check circle'"></i>
-        </button>
+        </button> -->
       <!-- </div>  -->
     </div>
 
     <div id="appe">
-
       <div class="history">
-        <button type="button"@click="deleteTodo(todo)" class="remove">
-          <i class="trash alternate icon"></i>
-        </button>
-        <div class="remove-after"></div>
-        <div style="display: block;">
-          <h4>{{todo.title}}</h4>
-          <h5>{{todo.text}}</h5>
-        </div>
-        <div class="placeholder-content">
-          <hr>
-          <ul>
-            <li v-for="time in todo.times"> {{time}}</li>
-          </ul>
-        </div>
+        <!-- <a href="https://stackoverflow.com/questions/45128744/vue-css-how-to-make-a-smooth-height-transition-between-two-alternating-elements" >AAAA</a> -->
         <div>
-          <transition name="slide-fade" mode="out-in">
+          <!-- <button type="button"@click="deleteTodo(todo)" class="remove">
+            <i class="trash alternate icon"></i>
+          </button> -->
+          <div >
+            <h4>{{todo.title}}</h4>
+            <h5>{{todo.text}}</h5>
+          </div>
+          <hr>
+        </div>
+        <div class="stopperwatch">
+          <transition name="slide-fade" >
             <div v-if="!timing && !done" key="begin">
               <!--  v-show="!timing && !done"-->
               <button type="button" @click="startTime" > Begin </button>
@@ -63,21 +57,14 @@
         </div>
         <br>
         <button type="button" @click="completeTodo(todo)" :aria-label="todo.done ? 'Undone' : 'Done'">
-          <i :class="done ? 'check circle outline icon' : 'check circle'"></i>
+          <i :class="done ? 'check circle outline icon' : 'check circle icon'"></i>
         </button>
       </div>
-
-        <button @click="(show_A ? show_A = false : show_A = true);" style="min-height: 20px;">
-          Cycle states
-        </button>
       <div class="interaction" v-bind:class="{ show_B: !show_A }">
-       
-        
-        <br>
         <transition name="fade" >
-          <div v-if="show_A" class="interaction-A" key="a"> A </div>
+          <div v-if="show_A" class="interaction-A" key="a"></div>
           <div v-else class="interaction-B" key="b"> 
-            <h3 v-show="!show_A">Completed</h3>
+            <h3>Completed</h3>
           </div>
         </transition>
         
@@ -107,6 +94,7 @@ export default {
   methods: {
     completeTodo(todo) {
         this.done = !this.done;
+        this.show_A = !this.show_A;
         this.$emit('complete-todo', todo);
       },
       calculated(total) {
@@ -140,10 +128,10 @@ export default {
     clear: both;
   }
   .slide-fade-enter-active {
-    transition: all .3s ease;
+    transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
   }
   .slide-fade-leave-active {
-    transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    transition: all .28s cubic-bezier(1.0, 0.5, 0.8, 1.0);
   }
   .slide-fade-enter, .slide-fade-leave-to
   /* .slide-fade-leave-active below version 2.1.8 */ {
@@ -157,47 +145,52 @@ export default {
 
 #appe {
   display: flex;
-  height: 600px;
+  height: 300px;
   flex-direction: column;
-  border: 10px solid lightgray
+  /* border: 10px solid lightgray */
 }
 
 .history {
-  border: 3px solid lightyellow;
+  /* border: 3px solid lightyellow; */
   display: flex;
   flex: 999 1 auto;
-  flex-direction: column-reverse;
+  flex-direction: column;
   /* overflow-y: auto; */
 }
 
 .placeholder-content {
-  min-height: 500px;
+  min-height: 100px;
 }
 
 .interaction-A {
-  border: 3px solid lightblue;
-  padding: 5px;
-  margin: 5px;
-  min-height: 200px;
+  /* border: 3px solid lightblue; */
+  /* padding: 5px; */
+  /* margin: 5px; */
+  min-height: 0px;
 }
 
 .interaction-B {
-  border: 3px solid lightblue;
-  padding: 5px;
-  margin: 5px;
-  min-height: 300px;
+  /* border: 3px solid lightblue; */
+  /* padding: 5px; */
+  /* margin: 5px; */
+  min-height: 10px;
 }
 
 .interaction {
-  border: 10px solid lightgreen;
+  /* border: 10px solid lightgreen; */
   display: flex;
   flex: 1 0 auto;
-  max-height: 225px;
+  text-align: center;
+  max-height: 12px;
+  margin: 0 auto;
   transition: max-height 0.25s ease-out;
 }
 
 .interaction.show_B {
-    max-height: 325px;
+    max-height: 90px;
+    text-align: center;
+    padding-bottom: 2em;
+    margin: 0 auto;
     transition: max-height 0.15s ease-in;
 }
 
