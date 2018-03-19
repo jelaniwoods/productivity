@@ -82,7 +82,7 @@ export default {
   margin-top: 80px;
 }
 .create_color {
-  background-color:darkslateblue;
+  background-color:#444;
   
 }
 .create label {
