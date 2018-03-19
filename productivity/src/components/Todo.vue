@@ -1,7 +1,7 @@
 <template lang="html">
   <div  class="card ui todo lefter">
     <div id="appe">
-      <div class="history card ui todo lefter">
+      <div class="history card ui todo lefter" v-rainbow>
         <!-- <a href="https://stackoverflow.com/questions/45128744/vue-css-how-to-make-a-smooth-height-transition-between-two-alternating-elements" >AAAA</a> -->
         <div>
           <div class="row"> 
@@ -15,7 +15,7 @@
           </div>
           <hr>
         </div>
-        <div class="stopperwatch" :class="{bgc: done}" v-rainbow>
+        <div class="stopperwatch" :class="{bgc: done}" >
           <transition name="slide-fade" mode="out-in">
             <div v-if="!timing && !done" key="begin" class="stopwatch buttons">
               <button class="ui button" type="button" @click="startTime"> Begin </button>
@@ -81,7 +81,10 @@ export default {
   directives: {
     'rainbow': {
         bind(el, binding, vnode) {
-          el.style.backgroundColor = "#" + Math.random().toString().slice(2, 8);
+          let cssHSL = "hsl(" + 360 * Math.random() + ',' +
+                 (25 + 70 * Math.random()) + '%,' + 
+                 (85 + 10 * Math.random()) + '%)';
+          el.style.backgroundColor = cssHSL;
         }
       }
   }
