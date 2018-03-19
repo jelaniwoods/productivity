@@ -1,5 +1,5 @@
 <template lang="html" v-if="todos.length" tag="div">
-  <div class="ui" >
+  <div class="ui one column" >
     <div class="todo-container " id="todolist">
       <transition-group name="todolist" tag="ul" class="cen">
         <li v-for="todo in todoByStatus" :key="todo.id" class="todont" v-bind:class="todo.done ? 'done' : ''">

@@ -34,7 +34,7 @@
         <!-- <a href="https://stackoverflow.com/questions/45128744/vue-css-how-to-make-a-smooth-height-transition-between-two-alternating-elements" >AAAA</a> -->
         <div>
           <div class="row"> 
-            <button type="button"@click="deleteTodo(todo)" class="remove">
+            <button type="button"@click="deleteTodo(todo)" class="remove ui button">
               <i class="trash alternate icon"></i>
             </button>
           </div>
@@ -44,21 +44,21 @@
           </div>
           <hr>
         </div>
-        <div class="stopperwatch">
+        <div class="stopperwatch" :class="{bgc: done}">
           <transition name="slide-fade" mode="out-in">
             <div v-if="!timing && !done" key="begin" class="stopwatch buttons">
               <!--  v-show="!timing && !done"-->
-              <button type="button" @click="startTime"> Begin </button>
+              <button class="ui button" type="button" @click="startTime"> Begin </button>
             </div>
             <!--   v-show="timing && !done"-->
             <div class="stopwatch" v-if="timing && !done" key="timer">
               <stopwatch v-on:calculated="calculated"></stopwatch>
-              <button type="button" @click="timing = !timing" v-show="timing"> Done For Now </button>
+              <button class="ui button" type="button" @click="timing = !timing" v-show="timing"> Done For Now </button>
             </div>
           </transition>
         </div>
-        <button class="complete" type="button" @click="completeTodo(todo)" :aria-label="todo.done ? 'Undone' : 'Done'">
-          <i :class="done ? 'check circle outline icon' : 'check circle icon'"></i>
+        <button class="complete ui button" type="button" @click="completeTodo(todo)" :aria-label="todo.done ? 'Undone' : 'Done'">
+          <i :class="done ? 'check circle icon' : 'check circle outline icon'"></i>
         </button>
       </div>
       <div class="interaction" v-bind:class="{ show_B: !show_A }">
@@ -125,8 +125,13 @@ export default {
 
   }
   .buttons {
-    margin-top: 2em;
-    margin-bottom: -2em;
+    margin-top: 4em;
+    margin-bottom: -4em;
+  }
+  .bgc {
+    background-image: url("https://www.aaruush.net/v2013/_images/completed_stamp.png");
+    background-size: 200px;
+    background-repeat: repeat;
   }
   .complete {
     width: 50%;
@@ -134,20 +139,24 @@ export default {
   }
   .stopperwatch {
     /* padding-bottom: 1em; */
-    min-height: 120px;
+    min-height: 200px;
     height: auto;
     max-height: 200px;
     overflow: hidden;
     /* height: 120px; */
   }
   .stopwatch {
-    height: 120px;
+    height: 200px;
   }
   .text {
     padding-top: 1em;
   }
   .remove {
     float: right;
+    margin-right: 0;
+  }
+  .remove i {
+    margin: 0 auto !important;
   }
   .row {
     margin-bottom: 2em;
@@ -202,8 +211,8 @@ export default {
 
 .interaction-B {
   /* border: 3px solid lightblue; */
-  /* padding: 5px; */
-  /* margin: 5px; */
+  padding: 5px;
+  margin: 5px;
   min-height: 10px;
 }
 
