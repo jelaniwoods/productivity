@@ -15,7 +15,7 @@
           </div>
           <hr>
         </div>
-        <div class="stopperwatch" :class="{bgc: done}">
+        <div class="stopperwatch" :class="{bgc: done}" v-rainbow>
           <transition name="slide-fade" mode="out-in">
             <div v-if="!timing && !done" key="begin" class="stopwatch buttons">
               <button class="ui button" type="button" @click="startTime"> Begin </button>
@@ -77,6 +77,13 @@ export default {
     startTime: function () {
       this.timing = true;
     }
+  },
+  directives: {
+    'rainbow': {
+        bind(el, binding, vnode) {
+          el.style.backgroundColor = "#" + Math.random().toString().slice(2, 8);
+        }
+      }
   }
 }
 </script>
