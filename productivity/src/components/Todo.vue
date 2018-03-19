@@ -102,7 +102,8 @@ export default {
     margin-bottom: -4em;
   }
   .bgc {
-    background-image: url("https://www.aaruush.net/v2013/_images/completed_stamp.png");
+    transition: all .25 eas-in;
+    background-image: url("../assets/completed_stamp.png");
     background-size: 200px;
     background-repeat: repeat;
   }
