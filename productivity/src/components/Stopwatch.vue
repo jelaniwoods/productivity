@@ -5,17 +5,17 @@
     </ul>
     <span v-model="timer.current">{{timer.current}}</span>
     <div class="butts">
-      <button type="button" @click="start">Start</button>
-      <button type="button" @click="pause">Pause</button>
-      <button type="button" :disabled="fifteen" @click="lap">Lap</button>
-      <button type="button" :disabled="fifteen" @click="stop">Stop</button>
-      <button type="button" @click="reset">Reset</button>
-      <button type="button" :disabled="timing" @click="forcedFifteen">Fifteen!</button>
+      <button class="ui button" type="button" @click="start">Start</button>
+      <button class="ui button" type="button" @click="pause">Pause</button>
+      <button class="ui button" type="button" :disabled="fifteen" @click="lap">Lap</button>
+      <button class="ui button" type="button" :disabled="fifteen" @click="stop">Stop</button>
+      <button class="ui button" type="button" @click="reset">Reset</button>
+      <button class="ui button" type="button" :disabled="timing" @click="forcedFifteen">Fifteen!</button>
     </div>
     <audio id="snd" src="https://www.w3schools.com/html/horse.ogg" preload="auto"></audio>
     <div class="stats">
       <p v-show="calculated">{{this.totalWork}}</p>
-      <button type="button" @click="findTotal" :disabled="!haveLap">Calculate Total Time</button>
+      <button class="ui button" type="button" @click="findTotal" :disabled="!haveLap">Calculate Total Time</button>
     </div>
   </div>
 </template>
@@ -141,9 +141,12 @@ export default {
   button {
     transition: all .3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
+  button {
+    padding: 5px 15px 5px !important;
+  } 
   button:disabled,button[disabled]{
-    border: 1px solid white inset;
-    color: white;
-    background-color: #666;
+    border: 1px inset black ;
+    color: rgb(231, 231, 231);
+    background-color: rgb(211, 45, 45);
   }
 </style>
