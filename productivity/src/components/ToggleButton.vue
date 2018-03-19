@@ -1,7 +1,7 @@
 <template lang="html">
     <div class="togglebutton-wrapper" v-bind:class="isactive ? 'togglebutton-checked' : ''">
         <label v-bind:for="name">
-              <span class="togglebutton-label">{{ name }}</span>
+              <span class="togglebutton-label">Completed to the Bottom</span>
               <span class="tooglebutton-box"></span>
         </label>
         <input v-bind:id="name" type="checkbox" v-bind:name="name" v-model="isactive" v-on:change="onToogle">
@@ -37,6 +37,11 @@ import Todo from './Todo';
     /* TOOGLE COMPONENT */
 .togglebutton-wrapper {
 	margin-top:1em;
+    position: absolute;
+    top: 10%;
+}
+.tooglebutton-box {
+    background-color: #888 !important; 
 }
 .togglebutton-wrapper label {
     display:flex;
