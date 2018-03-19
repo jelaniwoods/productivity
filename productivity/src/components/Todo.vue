@@ -1,8 +1,8 @@
 <template lang="html">
-  <div  class="card ui todo">
-    <div>
-      <!-- <div class="history"> -->
-        <!-- <button type="button"@click="deleteTodo(todo)" class="remove">
+  <div  class="card ui todo lefter">
+    <!-- <div>
+      <div class="history">
+        <button type="button"@click="deleteTodo(todo)" class="remove">
           <i class="trash alternate icon"></i>
         </button>
         <div class="remove-after"></div>
@@ -25,43 +25,42 @@
         <br>
         <button type="button" @click="completeTodo(todo)" :aria-label="todo.done ? 'Undone' : 'Done'">
           <i :class="done ? 'check circle outline icon' : 'check circle'"></i>
-        </button> -->
-      <!-- </div>  -->
-    </div>
+        </button>
+      </div> 
+    </div> -->
 
     <div id="appe">
-      <div class="history">
+      <div class="history card ui todo lefter">
         <!-- <a href="https://stackoverflow.com/questions/45128744/vue-css-how-to-make-a-smooth-height-transition-between-two-alternating-elements" >AAAA</a> -->
         <div>
           <!-- <button type="button"@click="deleteTodo(todo)" class="remove">
             <i class="trash alternate icon"></i>
           </button> -->
-          <div >
-            <h4>{{todo.title}}</h4>
-            <h5>{{todo.text}}</h5>
+          <div class="text">
+            <h2>{{todo.title}}</h2>
+            <h3>{{todo.text}}</h3>
           </div>
           <hr>
         </div>
         <div class="stopperwatch">
-          <transition name="slide-fade" >
-            <div v-if="!timing && !done" key="begin">
+          <transition name="slide-fade" mode="out-in">
+            <div v-if="!timing && !done" key="begin" class="stopwatch buttons">
               <!--  v-show="!timing && !done"-->
-              <button type="button" @click="startTime" > Begin </button>
+              <button type="button" @click="startTime"> Begin </button>
             </div>
             <!--   v-show="timing && !done"-->
-            <div class="stopwatch" v-if="timing && !done" key="timer" >
+            <div class="stopwatch" v-if="timing && !done" key="timer">
               <stopwatch v-on:calculated="calculated"></stopwatch>
               <button type="button" @click="timing = !timing" v-show="timing"> Done For Now </button>
             </div>
           </transition>
         </div>
-        <br>
         <button type="button" @click="completeTodo(todo)" :aria-label="todo.done ? 'Undone' : 'Done'">
           <i :class="done ? 'check circle outline icon' : 'check circle icon'"></i>
         </button>
       </div>
       <div class="interaction" v-bind:class="{ show_B: !show_A }">
-        <transition name="fade" >
+        <transition name="fade" mode="out-in">
           <div v-if="show_A" class="interaction-A" key="a"></div>
           <div v-else class="interaction-B" key="b"> 
             <h3>Completed</h3>
@@ -114,6 +113,7 @@ export default {
 <style lang="css" scoped>
   .todo {
     margin: 0 auto;
+    width: 400px;
     /* overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -121,31 +121,49 @@ export default {
     transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 
   }
-  /* .remove {
-    float: right;
-  } */
+  .buttons {
+    margin-top: 2em;
+    margin-bottom: -2em;
+  }
+  .stopperwatch {
+    /* padding-bottom: 1em; */
+    min-height: 120px;
+    height: auto;
+    max-height: 200px;
+    overflow: hidden;
+    /* height: 120px; */
+  }
+  .stopwatch {
+    height: 120px;
+  }
+  .text {
+    padding-top: 1em;
+  }
   .remove-after {
     clear: both;
   }
   .slide-fade-enter-active {
     transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    /* max-height: 5px; */
+    padding-bottom: 1em;
   }
   .slide-fade-leave-active {
     transition: all .28s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    /* max-height: 0px; */
+    /* padding-bottom: 1em; */
   }
   .slide-fade-enter, .slide-fade-leave-to
   /* .slide-fade-leave-active below version 2.1.8 */ {
-    transform: translateX(10px);
+    /* transform: translateX(10px); */
     opacity: 0;
+    /*padding-bottom: 1em; */
   }
-
-
-
 
 
 #appe {
   display: flex;
-  height: 300px;
+  /* height: 300px; */
+  height:auto;
   flex-direction: column;
   /* border: 10px solid lightgray */
 }
@@ -202,8 +220,10 @@ export default {
 .fade-enter-active {
   transition-delay: .25s;
 }
-
-.fade-enter, .fade-leave-active {
+.fade-enter-to {
+  opacity: 1;
+}
+.fade-enter, .fade-leave-to {
   opacity: 0;
  }
 
