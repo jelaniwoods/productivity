@@ -33,7 +33,7 @@ export default {
       calculated: false,
       interval: null,
       offset: {},
-      clock: 0,
+      clock: 0.00,
       options: {delay: 100},
       alert: false,
       timing: false,
@@ -97,10 +97,10 @@ export default {
         //60000000 ms to 1 minute or actually 60000
         this.mins++;
         let nt = Number.parseFloat(this.timer.current) + Number.parseFloat(this.mins);
-        console.log('mins: ' + this.mins + ' cur: ' + this.timer.current + " clock: " + this.clock + ' newtime: ' +
-      nt);
+        // console.log('mins: ' + this.mins + ' cur: ' + this.timer.current + " clock: " + this.clock + ' newtime: ' +
+      // nt);
         this.clock -= 59500;
-        console.log('newclock: '  + this.clock);
+        // console.log('newclock: '  + this.clock);
         this.timer.current = Number.parseFloat((this.mins).toPrecision(4));
       } else {
         if (this.mins <= 0) {
@@ -117,7 +117,7 @@ export default {
       let cc = this.laps.reduce((acc, cur) => Number.parseFloat(acc) + Number.parseFloat(cur));
       this.totalWork = cc;
       this.calculated = true;
-      console.log(this.totalWork + '******');
+      // console.log(this.totalWork + '******');
       this.$emit('calculated', {sum: this.totalWork});
     },
     forcedFifteen() {
