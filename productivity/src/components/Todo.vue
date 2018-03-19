@@ -33,9 +33,11 @@
       <div class="history card ui todo lefter">
         <!-- <a href="https://stackoverflow.com/questions/45128744/vue-css-how-to-make-a-smooth-height-transition-between-two-alternating-elements" >AAAA</a> -->
         <div>
-          <!-- <button type="button"@click="deleteTodo(todo)" class="remove">
-            <i class="trash alternate icon"></i>
-          </button> -->
+          <div class="row"> 
+            <button type="button"@click="deleteTodo(todo)" class="remove">
+              <i class="trash alternate icon"></i>
+            </button>
+          </div>
           <div class="text">
             <h2>{{todo.title}}</h2>
             <h3>{{todo.text}}</h3>
@@ -55,7 +57,7 @@
             </div>
           </transition>
         </div>
-        <button type="button" @click="completeTodo(todo)" :aria-label="todo.done ? 'Undone' : 'Done'">
+        <button class="complete" type="button" @click="completeTodo(todo)" :aria-label="todo.done ? 'Undone' : 'Done'">
           <i :class="done ? 'check circle outline icon' : 'check circle icon'"></i>
         </button>
       </div>
@@ -64,6 +66,7 @@
           <div v-if="show_A" class="interaction-A" key="a"></div>
           <div v-else class="interaction-B" key="b"> 
             <h3>Completed</h3>
+            <p>{{total.sum}}</p>
           </div>
         </transition>
         
@@ -97,7 +100,7 @@ export default {
         this.$emit('complete-todo', todo);
       },
       calculated(total) {
-        this.total = total.sum;
+        this.total = total;
       },
     deleteTodo(todo) {
         this.$emit('delete-todo', todo);
@@ -125,6 +128,10 @@ export default {
     margin-top: 2em;
     margin-bottom: -2em;
   }
+  .complete {
+    width: 50%;
+    margin: 0 auto;
+  }
   .stopperwatch {
     /* padding-bottom: 1em; */
     min-height: 120px;
@@ -138,6 +145,12 @@ export default {
   }
   .text {
     padding-top: 1em;
+  }
+  .remove {
+    float: right;
+  }
+  .row {
+    margin-bottom: 2em;
   }
   .remove-after {
     clear: both;
