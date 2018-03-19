@@ -73,7 +73,7 @@ import Todo from './Todo';
 	top:2px; left:2px;
 	display:block;
 	width:18px; height:18px;
-	/*border:1px solid #FF6666;*/
+	border:1px solid #FF6666;
 	border-radius:50%;
 	background:#FF6666;
 	opacity:0.7;
